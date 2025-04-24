@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kazakh Lessons - All Levels{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">Kazakh Language Lessons</h1>
+            <p class="lead mb-5">Select a level to begin your Kazakh language journey. Each level contains multiple lessons with videos, explanations, and practice tests.</p>
+        </div>
+    </div>
+    
+    {% if levels %}
+        {% for level, lessons in levels.items %}
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">{{ level.name }}</h2>
+            </div>
+            <div class="card-body">
+                <p>{{ level.description }}</p>
+                
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
+                    {% for lesson in lessons %}
+                    <div class="col">
+                        <div class="card h-100 lesson-card">
+                            {% if lesson.image %}
+                            <img src="{{ lesson.image.url }}" class="card-img-top" alt="{{ lesson.title_en }}">
+                            {% else %}
+                            <img src="{% static 'img/lesson-placeholder.jpg' %}" class="card-img-top" alt="{{ lesson.title_en }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ lesson.title_en }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ lesson.title_kz }}</h6>
+                                <p class="card-text">{{ lesson.description|truncatewords:15 }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0">
+                                <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary w-100">View Lesson</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            <p>No lessons are available yet. Please check back later.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

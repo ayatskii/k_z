@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kazakh Dictionary - Learn Kazakh{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="mb-4">Kazakh Dictionary</h1>
+            <p class="lead">Search for words to find translations, examples, and audio pronunciation.</p>
+            
+            <div class="search-bar">
+                <form action="{% url 'search_word' %}" method="get" class="d-flex">
+                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Search for a word in Kazakh or English..." aria-label="Search" required>
+                    <button class="btn btn-primary btn-lg ms-2" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Categories</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for category in categories %}
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'category_detail' category.id %}" class="text-decoration-none">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-folder me-3 text-primary"></i>
+                                    <div>
+                                        <h5 class="mb-0">{{ category.name }}</h5>
+                                        <small class="text-muted">{{ category.words.count }} words</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% empty %}
+                        <div class="col-12">
+                            <p class="text-center">No categories available yet.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Words to Explore</h2>
+            
+            <div class="row">
+                {% for word in random_words %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card word-card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ word.word_kz }}</h3>
+                            <h5 class="card-subtitle mb-2 text-muted">{{ word.word_en }}</h5>
+                            
+                            {% if word.pronunciation %}
+                            <p class="pronunciation mb-2">
+                                [{{ word.pronunciation }}]
+                                {% if word.audio %}
+                                <button class="btn btn-sm btn-outline-secondary pronunciation-btn" data-audio-id="audio_{{ word.id }}">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                                <audio id="audio_{{ word.id }}" src="{{ word.audio.url }}"></audio>
+                                {% endif %}
+                            </p>
+                            {% endif %}
+                            
+                            <p class="card-text">{{ word.definition|truncatewords:15 }}</p>
+                            
+                            <a href="{% url 'word_detail' word.id %}" class="btn btn-primary">View Details</a>
+                            
+                            {% if user.is_authenticated %}
+                                {% if word in user.saved_words %}
+                                <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-bookmark"></i> Saved
+                                </a>
+                                {% else %}
+                                <a href="{% url 'save_word' word.id %}" class="btn btn-outline-secondary">
+                                    <i class="far fa-bookmark"></i> Save
+                                </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <p>No words are available in the dictionary yet. Please check back later.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

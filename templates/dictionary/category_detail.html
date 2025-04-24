@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} Words - Qazaq Learn{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">Dictionary</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                </ol>
+            </nav>
+            
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">{{ category.name }} Words</h1>
+                    <span class="badge bg-primary">{{ words.count }} words</span>
+                </div>
+                <div class="card-body">
+                    <p class="lead mb-4">{{ category.description }}</p>
+                    
+                    <div class="search-bar mb-4">
+                        <form action="{% url 'search_word' %}" method="get" class="d-flex">
+                            <input type="text" name="q" class="form-control" placeholder="Search in {{ category.name }} words..." aria-label="Search" required>
+                            <button class="btn btn-primary ms-2" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    {% if words %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kazakh</th>
+                                    <th>English</th>
+                                    <th>Pronunciation</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for word in words %}
+                                <tr>
+                                    <td class="fw-bold">{{ word.word_kz }}</td>
+                                    <td>{{ word.word_en }}</td>
+                                    <td>
+                                        {% if word.pronunciation %}
+                                        <span class="text-muted">[{{ word.pronunciation }}]</span>
+                                        {% else %}
+                                        <span class="text-muted">—</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        
+                                        {% if user.is_authenticated %}
+                                            {% if word in user.saved_words.all %}
+                                            <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-bookmark"></i> Saved
+                                            </a>
+                                            {% else %}
+                                            <a href="{% url 'save_word' word.id %}" class="btn btn-sm btn-outline-secondary">
+                                                <i class="far fa-bookmark"></i> Save
+                                            </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info text-center">
+                        <i class="fas fa-info-circle fa-2x mb-3"></i>
+                        <p>No words in this category yet. Check back later!</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if words %}
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Quick Learn</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for word in words|slice:":6" %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ word.word_kz }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ word.word_en }}</h6>
+                                    <p class="card-text small">{{ word.definition|truncatewords:10 }}</p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-primary w-100">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="{% url 'dictionary_home' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Back to Dictionary
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

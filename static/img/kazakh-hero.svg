@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <!-- Background with Kazakh-inspired pattern -->
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005BBB;stop-opacity:1" /> <!-- Blue from Kazakh flag -->
+      <stop offset="100%" style="stop-color:#00337F;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="kazakh-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M0,30 L60,30 M30,0 L30,60" stroke="#FFCC00" stroke-width="1" opacity="0.2" />
+      <path d="M15,15 L45,45 M45,15 L15,45" stroke="#FFCC00" stroke-width="1" opacity="0.2" />
+    </pattern>
+  </defs>
+  
+  <!-- Main background -->
+  <rect width="1200" height="400" fill="url(#bg-grad)" />
+  <rect width="1200" height="400" fill="url(#kazakh-pattern)" />
+  
+  <!-- Stylized mountains representing Kazakhstan landscape -->
+  <path d="M0,400 L200,250 L300,320 L500,180 L700,280 L900,150 L1100,300 L1200,220 L1200,400 Z" fill="#003366" opacity="0.7" />
+  <path d="M0,400 L300,280 L500,350 L700,230 L900,320 L1200,250 L1200,400 Z" fill="#002244" opacity="0.8" />
+  
+  <!-- Sun symbol (shanyrak-inspired) -->
+  <circle cx="900" cy="100" r="60" fill="#FFCC00" />
+  <circle cx="900" cy="100" r="45" fill="none" stroke="#FFFFFF" stroke-width="2" />
+  <path d="M900,40 L900,160 M840,100 L960,100 M855,55 L945,145 M855,145 L945,55" stroke="#FFFFFF" stroke-width="2" />
+  
+  <!-- Text elements -->
+  <text x="100" y="150" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#FFFFFF">Learn Kazakh</text>
+  <text x="100" y="210" font-family="Arial, sans-serif" font-size="30" fill="#FFFFFF">Your gateway to the Kazakh language and culture</text>
+  
+  <!-- Decorative elements -->
+  <path d="M100,230 L600,230" stroke="#FFCC00" stroke-width="3" />
+  
+  <!-- Stylized traditional pattern -->
+  <g transform="translate(100, 270)">
+    <path d="M0,0 C20,-20 40,-20 60,0 C80,20 100,20 120,0 C140,-20 160,-20 180,0 C200,20 220,20 240,0" 
+          fill="none" stroke="#FFCC00" stroke-width="3" />
+    <path d="M0,30 C20,10 40,10 60,30 C80,50 100,50 120,30 C140,10 160,10 180,30 C200,50 220,50 240,30" 
+          fill="none" stroke="#FFCC00" stroke-width="3" />
+  </g>
+</svg> 

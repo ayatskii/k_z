@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <!-- Teal graduation cap logo with larger text -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00A19A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#008B81;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Cap main body -->
+  <path d="M80,40 L10,70 L80,100 L150,70 Z" fill="url(#grad1)"/>
+  
+  <!-- Cap bottom -->
+  <path d="M40,78 L40,115 C40,125 80,140 120,115 L120,78 L80,100 Z" fill="url(#grad1)"/>
+  
+  <!-- Tassel -->
+  <path d="M120,78 L125,115 C125,118 128,118 130,115 L140,85" fill="none" stroke="url(#grad1)" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Cap top -->
+  <rect x="60" y="30" width="40" height="10" fill="url(#grad1)"/>
+  
+  <!-- Text: Qazaq Learn (LARGER) -->
+  <text x="170" y="85" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="#00A19A">Qazaq</text>
+  <text x="180" y="130" font-family="Arial, sans-serif" font-size="38" fill="#333333">Learn</text>
+</svg> 

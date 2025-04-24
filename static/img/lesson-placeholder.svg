@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <!-- Background -->
+  <rect width="400" height="200" fill="#e9ecef" />
+  
+  <!-- Decorative elements -->
+  <rect x="0" y="0" width="400" height="10" fill="#00A19A" />
+  <rect x="0" y="190" width="400" height="10" fill="#00A19A" />
+  
+  <!-- Placeholder icon -->
+  <circle cx="200" cy="80" r="30" fill="#00A19A" opacity="0.7" />
+  <text x="200" y="90" font-family="Arial, sans-serif" font-size="30" fill="#FFFFFF" text-anchor="middle">KZ</text>
+  
+  <!-- Placeholder text -->
+  <text x="200" y="140" font-family="Arial, sans-serif" font-size="18" fill="#6c757d" text-anchor="middle">Lesson Image</text>
+  <text x="200" y="165" font-family="Arial, sans-serif" font-size="14" fill="#6c757d" text-anchor="middle">Coming Soon</text>
+</svg> 

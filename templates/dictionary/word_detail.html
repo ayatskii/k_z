@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ word.word_kz }} - Kazakh Dictionary{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h2 mb-0">{{ word.word_kz }}</h1>
+                
+                {% if user.is_authenticated %}
+                    {% if is_saved %}
+                    <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-outline-light">
+                        <i class="fas fa-bookmark me-2"></i> Remove from Saved
+                    </a>
+                    {% else %}
+                    <a href="{% url 'save_word' word.id %}" class="btn btn-outline-light">
+                        <i class="far fa-bookmark me-2"></i> Save Word
+                    </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2 class="text-muted">{{ word.word_en }}</h2>
+                    
+                    {% if word.pronunciation %}
+                    <p class="pronunciation mb-3">
+                        [{{ word.pronunciation }}]
+                        {% if word.audio %}
+                        <button class="btn btn-sm btn-outline-secondary ms-2 pronunciation-btn" data-audio-id="audio_word">
+                            <i class="fas fa-volume-up"></i> Listen
+                        </button>
+                        <audio id="audio_word" src="{{ word.audio.url }}"></audio>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    {% if word.categories.exists %}
+                    <div class="mb-3">
+                        <strong>Categories:</strong>
+                        <div class="mt-2">
+                            {% for category in word.categories.all %}
+                            <a href="{% url 'category_detail' category.id %}" class="badge bg-light text-dark text-decoration-none me-2 mb-2 p-2">
+                                {{ category.name }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h3>Definition</h3>
+                <p class="lead">{{ word.definition }}</p>
+            </div>
+            
+            {% if word.example_kz or word.example_en %}
+            <div class="word-examples">
+                <h3>Examples</h3>
+                
+                {% if word.example_kz %}
+                <div class="mb-2">
+                    <strong class="text-primary">Kazakh:</strong>
+                    <p>{{ word.example_kz }}</p>
+                </div>
+                {% endif %}
+                
+                {% if word.example_en %}
+                <div>
+                    <strong class="text-primary">English:</strong>
+                    <p>{{ word.example_en }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'dictionary_home' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i> Back to Dictionary
+                </a>
+                
+                <div>
+                    <a href="javascript:window.print()" class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-print me-2"></i> Print
+                    </a>
+                    <button class="btn btn-outline-secondary" onclick="shareWord()">
+                        <i class="fas fa-share-alt me-2"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-5">
+        <h3 class="mb-4">Related Words</h3>
+        
+        <div class="row">
+            {% for related_word in word.categories.first.words.all|slice:":6" %}
+                {% if related_word != word %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ related_word.word_kz }}</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ related_word.word_en }}</h6>
+                            <p class="card-text">{{ related_word.definition|truncatewords:10 }}</p>
+                            <a href="{% url 'word_detail' related_word.id %}" class="btn btn-sm btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% empty %}
+                <div class="col-12">
+                    <p>No related words found.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    function shareWord() {
+        if (navigator.share) {
+            navigator.share({
+                title: "{{ word.word_kz }} - {{ word.word_en }}",
+                text: "Check out this word in Kazakh: {{ word.word_kz }} means '{{ word.word_en }}'",
+                url: window.location.href
+            })
+            .catch(error => console.log('Error sharing', error));
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            prompt("Copy this link to share:", window.location.href);
+        }
+    }
+</script>
+{% endblock %}
+{% endblock %} 

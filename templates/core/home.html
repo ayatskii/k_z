@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Learn Kazakh - Online Learning Platform{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">Learn Kazakh Language</h1>
+        <p class="lead mb-4">Master Kazakh with our interactive lessons, quizzes, and vocabulary tools</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'lesson_list' %}" class="btn btn-primary btn-lg px-4 gap-3">Start Learning</a>
+            <a href="{% url 'dictionary_home' %}" class="btn btn-outline-light btn-lg px-4">Explore Dictionary</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Benefits Section -->
+    <section class="mb-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Why Learn with Us?</h2>
+            <p class="lead">Our platform offers the best tools to help you learn Kazakh effectively</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Structured Learning</h3>
+                    <p>Follow a well-structured curriculum designed by language experts from beginner to advanced levels.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Tutorials</h3>
+                    <p>Learn with our comprehensive video lessons that explain grammar, vocabulary, and pronunciation.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>Interactive Tests</h3>
+                    <p>Practice what you've learned with interactive quizzes and track your progress over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Lessons -->
+    <section class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0">Featured Lessons</h2>
+            <a href="{% url 'lesson_list' %}" class="btn btn-outline-primary">View All Lessons</a>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for lesson in featured_lessons %}
+            <div class="col">
+                <div class="card lesson-card h-100">
+                    {% if lesson.image %}
+                    <img src="{{ lesson.image.url }}" class="card-img-top" alt="{{ lesson.title_en }}">
+                    {% else %}
+                    <img src="{% static 'img/lesson-placeholder.svg' %}" class="card-img-top" alt="{{ lesson.title_en }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ lesson.title_en }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ lesson.title_kz }}</h6>
+                        <p class="card-text">{{ lesson.description|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary w-100">Start Lesson</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>No featured lessons available yet. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+    <!-- Call to Action Cards -->
+    <section class="mb-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-language fa-3x text-primary mb-3"></i>
+                        <h4 class="card-title">Start Learning Kazakh</h4>
+                        <p class="card-text">Begin your journey to learn Kazakh with our comprehensive courses.</p>
+                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">View Lessons</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-play-circle fa-3x text-primary mb-3"></i>
+                        <h4 class="card-title">Watch Video Tutorials</h4>
+                        <p class="card-text">Learn with our detailed video tutorials and improve your pronunciation.</p>
+                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">View Videos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+                        <h4 class="card-title">Take Tests</h4>
+                        <p class="card-text">Test your knowledge and track your progress with our interactive quizzes.</p>
+                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">Try Quizzes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %} 

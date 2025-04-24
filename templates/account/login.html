@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign In" %} - Qazaq Learn{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <h2 class="card-title text-center mb-4 text-primary">{% trans "Sign In" %}</h2>
+        
+        {% get_providers as socialaccount_providers %}
+        
+        {% if socialaccount_providers %}
+        <div class="mb-4">
+          <p class="text-center mb-3">{% trans "Sign in with one of your existing third-party accounts:" %}</p>
+          <div class="d-grid gap-2">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </div>
+          <div class="text-center my-3">
+            <p class="d-inline-block px-3 bg-light position-relative" style="z-index: 1;">{% trans "or use your username" %}</p>
+            <hr class="mt-n3">
+          </div>
+        </div>
+        {% endif %}
+        
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          
+          {% if form.errors %}
+          <div class="alert alert-danger">
+            <p class="mb-0">{% trans "Please enter a correct username and password. Note that both fields may be case-sensitive." %}</p>
+          </div>
+          {% endif %}
+          
+          <div class="mb-3">
+            <label for="id_login" class="form-label">{% trans "Username or Email" %}</label>
+            <input type="text" name="login" placeholder="{% trans 'Username or Email' %}" class="form-control {% if form.login.errors %}is-invalid{% endif %}" id="id_login" required>
+            {% if form.login.errors %}
+            <div class="invalid-feedback">{{ form.login.errors }}</div>
+            {% endif %}
+          </div>
+          
+          <div class="mb-3">
+            <label for="id_password" class="form-label">{% trans "Password" %}</label>
+            <input type="password" name="password" placeholder="{% trans 'Password' %}" class="form-control {% if form.password.errors %}is-invalid{% endif %}" id="id_password" required>
+            {% if form.password.errors %}
+            <div class="invalid-feedback">{{ form.password.errors }}</div>
+            {% endif %}
+          </div>
+          
+          <div class="mb-3 form-check">
+            <input type="checkbox" name="remember" class="form-check-input" id="id_remember">
+            <label class="form-check-label" for="id_remember">{% trans "Remember Me" %}</label>
+          </div>
+          
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          
+          <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+          </div>
+          
+          <div class="d-flex justify-content-between small">
+            <a href="{% url 'account_reset_password' %}" class="text-decoration-none">{% trans "Forgot Password?" %}</a>
+            <a href="{{ signup_url }}" class="text-decoration-none">{% trans "Sign up" %}</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

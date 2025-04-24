@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Learning Progress - Qazaq Learn{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">My Learning Progress</h1>
+                    <a href="{% url 'profile' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Back to Profile
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for level, stats in progress_by_level.items %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 progress-card">
+                                <div class="card-header bg-{{ stats.percentage|divisibleby:100|yesno:'success,primary' }}">
+                                    <h5 class="mb-0 text-white">{{ level.name }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <h6>Completion Status</h6>
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar bg-{{ stats.percentage|divisibleby:100|yesno:'success,primary' }}" 
+                                                 role="progressbar" 
+                                                 style="width: {{ stats.percentage }}%" 
+                                                 aria-valuenow="{{ stats.percentage }}" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100">
+                                                {{ stats.percentage }}%
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">{{ stats.completed }} of {{ stats.total }} lessons completed</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12 text-center py-5">
+                            <div class="mb-4">
+                                <i class="fas fa-book-open fa-4x text-muted mb-3"></i>
+                                <h3>No Progress Yet</h3>
+                                <p class="text-muted">You haven't started any lessons yet.</p>
+                            </div>
+                            <a href="{% url 'lesson_list' %}" class="btn btn-primary">
+                                <i class="fas fa-play me-2"></i>Start Learning
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if completed_lessons %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Completed Lessons</h2>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for lesson in completed_lessons %}
+                        <a href="{% url 'lesson_detail' lesson.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ lesson.title }}</h6>
+                                <span class="badge bg-success">Completed</span>
+                            </div>
+                            <p class="mb-1">{{ lesson.description|truncatechars:80 }}</p>
+                            <small>Level: {{ lesson.level.name }}</small>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if in_progress_lessons %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Lessons In Progress</h2>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for lesson in in_progress_lessons %}
+                        <a href="{% url 'lesson_detail' lesson.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ lesson.title }}</h6>
+                                <span class="badge bg-warning text-dark">In Progress</span>
+                            </div>
+                            <p class="mb-1">{{ lesson.description|truncatechars:80 }}</p>
+                            <small>Level: {{ lesson.level.name }}</small>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if not completed_lessons and not in_progress_lessons %}
+        <div class="col-12 text-center mb-4">
+            <div class="card">
+                <div class="card-body py-5">
+                    <div class="mb-4">
+                        <i class="fas fa-graduation-cap fa-4x text-muted mb-3"></i>
+                        <h3>Your Learning Journey Awaits</h3>
+                        <p class="text-muted">Start your first lesson to track your progress.</p>
+                    </div>
+                    <a href="{% url 'lesson_list' %}" class="btn btn-primary">
+                        <i class="fas fa-play me-2"></i>Browse Lessons
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

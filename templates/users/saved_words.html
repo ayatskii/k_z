@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Saved Words - Qazaq Learn{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">My Saved Words</h1>
+                    <a href="{% url 'profile' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Back to Profile
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if saved_words %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kazakh</th>
+                                    <th>English</th>
+                                    <th>Part of Speech</th>
+                                    <th>Date Saved</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for saved in saved_words %}
+                                <tr>
+                                    <td class="fw-bold">{{ saved.word.word_kz }}</td>
+                                    <td>{{ saved.word.word_en }}</td>
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            {{ saved.word.get_part_of_speech_display|default:"—" }}
+                                        </span>
+                                    </td>
+                                    <td>{{ saved.date_added|date:"M d, Y" }}</td>
+                                    <td>
+                                        <a href="{% url 'word_detail' saved.word.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-danger remove-saved" data-id="{{ saved.word.id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-book fa-4x text-muted mb-3"></i>
+                            <h3>No Saved Words</h3>
+                            <p class="text-muted">You haven't saved any words yet.</p>
+                        </div>
+                        <a href="{% url 'dictionary_home' %}" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>Explore Dictionary
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if saved_words %}
+<div class="modal fade" id="removeWordModal" tabindex="-1" aria-labelledby="removeWordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeWordModalLabel">Remove Saved Word</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove this word from your saved words?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="#" id="confirmRemove" class="btn btn-danger">Remove</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeLinks = document.querySelectorAll('.remove-saved');
+        const confirmBtn = document.getElementById('confirmRemove');
+        const modal = new bootstrap.Modal(document.getElementById('removeWordModal'));
+        
+        removeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const wordId = this.getAttribute('data-id');
+                confirmBtn.setAttribute('href', `/users/saved-words/remove/${wordId}/`);
+                modal.show();
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% endif %}
+
+{% endblock %} 

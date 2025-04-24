@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dictionary Categories - Qazaq Learn{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">Dictionary</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                </ol>
+            </nav>
+            
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">Dictionary Categories</h1>
+                    <span class="badge bg-primary">{{ categories.count }} categories</span>
+                </div>
+                <div class="card-body">
+                    <p class="lead mb-4">Browse words by category to help organize your learning.</p>
+                    
+                    {% if categories %}
+                    <div class="row">
+                        {% for category in categories %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ category.name }}</h5>
+                                    <p class="card-text">{{ category.description }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-primary">{{ category.words.count }} words</span>
+                                        <a href="{% url 'category_detail' category.id %}" class="btn btn-sm btn-outline-primary">Browse Words</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info text-center">
+                        <i class="fas fa-info-circle fa-2x mb-3"></i>
+                        <p>No categories available yet. Check back later!</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="{% url 'dictionary_home' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Back to Dictionary
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
