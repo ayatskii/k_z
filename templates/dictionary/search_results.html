@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Search Results - Qazaq Learn{% endblock %}
+{% block title %}{% trans "Search Results" %} - {% trans "Qazaq Learn" %}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -9,20 +10,25 @@
         <div class="col-12 mb-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">Dictionary</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+                    <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">{% trans "Dictionary" %}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{% trans "Search Results" %}</li>
                 </ol>
             </nav>
             
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h1 class="h3 mb-0">Search Results</h1>
-                    <span class="badge bg-primary">{{ words.count }} results</span>
+                    <h1 class="h3 mb-0">{% trans "Search Results" %}</h1>
+                    <span class="badge bg-primary">{{ words.count }} {% trans "results" %}</span>
                 </div>
                 <div class="card-body">
                     <div class="search-bar mb-4">
                         <form action="{% url 'search_word' %}" method="get" class="d-flex">
-                            <input type="text" name="q" class="form-control" placeholder="Search for a word in Kazakh or English..." aria-label="Search" value="{{ query }}" required>
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'ru' %}
+                            <input type="text" name="q" class="form-control" placeholder="{% trans 'Search for a word in Kazakh or Russian...' %}" aria-label="Search" value="{{ query }}" required>
+                            {% else %}
+                            <input type="text" name="q" class="form-control" placeholder="{% trans 'Search for a word in Kazakh or English...' %}" aria-label="Search" value="{{ query }}" required>
+                            {% endif %}
                             <button class="btn btn-primary ms-2" type="submit">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -32,25 +38,35 @@
                     {% if query %}
                         {% if words %}
                             <div class="alert alert-success mb-4">
-                                <p class="mb-0">Found {{ words.count }} result{% if words.count != 1 %}s{% endif %} for "{{ query }}".</p>
+                                <p class="mb-0">{% trans "Found" %} {{ words.count }} {% trans "result" %}{% if words.count != 1 %}{% trans "s" %}{% endif %} {% trans "for" %} "{{ query }}".</p>
                             </div>
                             
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Kazakh</th>
-                                            <th>English</th>
-                                            <th>Pronunciation</th>
-                                            <th>Categories</th>
-                                            <th>Actions</th>
+                                            <th>{% trans "Kazakh" %}</th>
+                                            {% get_current_language as LANGUAGE_CODE %}
+                                            {% if LANGUAGE_CODE == 'ru' %}
+                                            <th>{% trans "Russian" %}</th>
+                                            {% else %}
+                                            <th>{% trans "English" %}</th>
+                                            {% endif %}
+                                            <th>{% trans "Pronunciation" %}</th>
+                                            <th>{% trans "Categories" %}</th>
+                                            <th>{% trans "Actions" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for word in words %}
                                         <tr>
                                             <td class="fw-bold">{{ word.word_kz }}</td>
+                                            {% get_current_language as LANGUAGE_CODE %}
+                                            {% if LANGUAGE_CODE == 'ru' and word.word_ru %}
+                                            <td>{{ word.word_ru }}</td>
+                                            {% else %}
                                             <td>{{ word.word_en }}</td>
+                                            {% endif %}
                                             <td>
                                                 {% if word.pronunciation %}
                                                 <span class="text-muted">[{{ word.pronunciation }}]</span>
@@ -60,24 +76,30 @@
                                             </td>
                                             <td>
                                                 {% for category in word.categories.all %}
-                                                <a href="{% url 'category_detail' category.id %}" class="badge rounded-pill bg-secondary text-decoration-none">{{ category.name }}</a>
+                                                <a href="{% url 'category_detail' category.id %}" class="badge rounded-pill bg-secondary text-decoration-none">
+                                                    {% if LANGUAGE_CODE == 'ru' and category.name_ru %}
+                                                        {{ category.name_ru }}
+                                                    {% else %}
+                                                        {{ category.name }}
+                                                    {% endif %}
+                                                </a>
                                                 {% empty %}
                                                 <span class="text-muted">—</span>
                                                 {% endfor %}
                                             </td>
                                             <td>
                                                 <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-outline-primary">
-                                                    <i class="fas fa-eye"></i> View
+                                                    <i class="fas fa-eye"></i> {% trans "View" %}
                                                 </a>
                                                 
                                                 {% if user.is_authenticated %}
                                                     {% if word in user.saved_words.all %}
                                                     <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-sm btn-outline-secondary">
-                                                        <i class="fas fa-bookmark"></i> Saved
+                                                        <i class="fas fa-bookmark"></i> {% trans "Saved" %}
                                                     </a>
                                                     {% else %}
                                                     <a href="{% url 'save_word' word.id %}" class="btn btn-sm btn-outline-secondary">
-                                                        <i class="far fa-bookmark"></i> Save
+                                                        <i class="far fa-bookmark"></i> {% trans "Save" %}
                                                     </a>
                                                     {% endif %}
                                                 {% endif %}
@@ -89,19 +111,19 @@
                             </div>
                         {% else %}
                             <div class="alert alert-warning mb-4">
-                                <p class="mb-0">No results found for "{{ query }}". Try another search term or browse the dictionary.</p>
+                                <p class="mb-0">{% trans "No results found for" %} "{{ query }}". {% trans "Try another search term or browse the dictionary." %}</p>
                             </div>
                             
                             <div class="text-center py-4">
                                 <i class="fas fa-search fa-4x text-muted mb-3"></i>
-                                <h3>No Matching Words</h3>
-                                <p class="text-muted">Try using a different spelling or search for a related word.</p>
-                                <a href="{% url 'dictionary_home' %}" class="btn btn-primary mt-2">Browse Dictionary</a>
+                                <h3>{% trans "No Matching Words" %}</h3>
+                                <p class="text-muted">{% trans "Try using a different spelling or search for a related word." %}</p>
+                                <a href="{% url 'dictionary_home' %}" class="btn btn-primary mt-2">{% trans "Browse Dictionary" %}</a>
                             </div>
                         {% endif %}
                     {% else %}
                         <div class="alert alert-info mb-4">
-                            <p class="mb-0">Please enter a search term to find words in the dictionary.</p>
+                            <p class="mb-0">{% trans "Please enter a search term to find words in the dictionary." %}</p>
                         </div>
                     {% endif %}
                 </div>
@@ -114,7 +136,7 @@
         <div class="col-12 mb-4">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="h4 mb-0">Quick View</h2>
+                    <h2 class="h4 mb-0">{% trans "Quick View" %}</h2>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -123,11 +145,17 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ word.word_kz }}</h5>
+                                    {% get_current_language as LANGUAGE_CODE %}
+                                    {% if LANGUAGE_CODE == 'ru' and word.word_ru %}
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ word.word_ru }}</h6>
+                                    <p class="card-text small">{{ word.definition_ru|truncatewords:10 }}</p>
+                                    {% else %}
                                     <h6 class="card-subtitle mb-2 text-muted">{{ word.word_en }}</h6>
                                     <p class="card-text small">{{ word.definition|truncatewords:10 }}</p>
+                                    {% endif %}
                                 </div>
                                 <div class="card-footer bg-transparent">
-                                    <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-primary w-100">Learn More</a>
+                                    <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-primary w-100">{% trans "Learn More" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +170,7 @@
     <div class="row">
         <div class="col-12 text-center">
             <a href="{% url 'dictionary_home' %}" class="btn btn-outline-primary">
-                <i class="fas fa-arrow-left"></i> Back to Dictionary
+                <i class="fas fa-arrow-left"></i> {% trans "Back to Dictionary" %}
             </a>
         </div>
     </div>

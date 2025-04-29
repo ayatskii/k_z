@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db import transaction
 from .models import Lesson, Question, Answer
 from users.models import UserProgress
+from django.utils.translation import get_language
 
 def lesson_list(request):
     # Get all published lessons grouped by level
@@ -100,8 +101,8 @@ def save_lesson(request, slug):
     user_progress.save()
     
     if is_saved:
-        messages.success(request, f'Lesson "{lesson.title_en}" saved to your profile.')
+        messages.success(request, f'Lesson "{lesson.get_title()}" saved to your profile.')
     else:
-        messages.info(request, f'Lesson "{lesson.title_en}" removed from saved.')
+        messages.info(request, f'Lesson "{lesson.get_title()}" removed from saved.')
     
     return redirect('lesson_detail', slug=slug) 

@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}About Us - Learn Kazakh{% endblock %}
+{% block title %}{% trans "About Us - Learn Kazakh" %}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row mb-5">
         <div class="col-lg-12">
-            <h1 class="text-center mb-4">About Learn Kazakh</h1>
+            <h1 class="text-center mb-4">{% trans "About Learn Kazakh" %}</h1>
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h2 class="card-title mb-4">Our Mission</h2>
+                    <h2 class="card-title mb-4">{% trans "Our Mission" %}</h2>
                     <p class="lead">
-                        We are dedicated to making the Kazakh language accessible to everyone, regardless of their background or experience level.
+                        {% trans "We are dedicated to making the Kazakh language accessible to everyone, regardless of their background or experience level." %}
                     </p>
                     <p>
-                        The Kazakh language is the state language of Kazakhstan and is spoken by millions of people. Our platform provides comprehensive resources for learning Kazakh in an engaging and interactive way. We believe that language learning should be enjoyable, practical, and suited to the modern learner's needs.
+                        {% trans "The Kazakh language is the state language of Kazakhstan and is spoken by millions of people. Our platform provides comprehensive resources for learning Kazakh in an engaging and interactive way. We believe that language learning should be enjoyable, practical, and suited to the modern learner's needs." %}
                     </p>
                 </div>
             </div>
@@ -25,16 +26,16 @@
         <div class="col-md-6 mb-4 mb-md-0">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <h3 class="card-title">Our Approach</h3>
+                    <h3 class="card-title">{% trans "Our Approach" %}</h3>
                     <p>
-                        Our teaching methodology is based on modern language learning techniques that focus on:
+                        {% trans "Our teaching methodology is based on modern language learning techniques that focus on:" %}
                     </p>
                     <ul>
-                        <li>Practical communication skills</li>
-                        <li>Cultural context and understanding</li>
-                        <li>Progressive learning from basic to advanced</li>
-                        <li>Interactive exercises and immediate feedback</li>
-                        <li>Audio and visual learning aids</li>
+                        <li>{% trans "Practical communication skills" %}</li>
+                        <li>{% trans "Cultural context and understanding" %}</li>
+                        <li>{% trans "Progressive learning from basic to advanced" %}</li>
+                        <li>{% trans "Interactive exercises and immediate feedback" %}</li>
+                        <li>{% trans "Audio and visual learning aids" %}</li>
                     </ul>
                 </div>
             </div>
@@ -42,17 +43,17 @@
         <div class="col-md-6">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <h3 class="card-title">Our Platform</h3>
+                    <h3 class="card-title">{% trans "Our Platform" %}</h3>
                     <p>
-                        Our platform offers:
+                        {% trans "Our platform offers:" %}
                     </p>
                     <ul>
-                        <li>Structured lessons organized by proficiency levels (A1-C2)</li>
-                        <li>Video tutorials with native speakers</li>
-                        <li>Interactive tests and quizzes</li>
-                        <li>Comprehensive Kazakh-English dictionary</li>
-                        <li>Progress tracking and learning analytics</li>
-                        <li>Mobile-friendly interface for learning on the go</li>
+                        <li>{% trans "Structured lessons organized by proficiency levels (A1-C2)" %}</li>
+                        <li>{% trans "Video tutorials with native speakers" %}</li>
+                        <li>{% trans "Interactive tests and quizzes" %}</li>
+                        <li>{% trans "Comprehensive Kazakh-English dictionary" %}</li>
+                        <li>{% trans "Progress tracking and learning analytics" %}</li>
+                        <li>{% trans "Mobile-friendly interface for learning on the go" %}</li>
                     </ul>
                 </div>
             </div>
@@ -63,12 +64,12 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title">Our Team</h3>
+                    <h3 class="card-title">{% trans "Our Team" %}</h3>
                     <p>
-                        Our team consists of professional linguists, native Kazakh speakers, educational technology experts, and language enthusiasts. Together, we work to create the best possible resources for learning the Kazakh language.
+                        {% trans "Our team consists of professional linguists, native Kazakh speakers, educational technology experts, and language enthusiasts. Together, we work to create the best possible resources for learning the Kazakh language." %}
                     </p>
                     <p>
-                        We're constantly improving our platform based on user feedback and the latest research in language acquisition to provide the most effective learning experience.
+                        {% trans "We're constantly improving our platform based on user feedback and the latest research in language acquisition to provide the most effective learning experience." %}
                     </p>
                 </div>
             </div>
@@ -79,9 +80,9 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title">Get in Touch</h3>
+                    <h3 class="card-title">{% trans "Get in Touch" %}</h3>
                     <p>
-                        We'd love to hear from you! Whether you have questions, suggestions, or just want to share your experience learning Kazakh with us, please feel free to <a href="{% url 'contact' %}">contact us</a>.
+                        {% trans "We'd love to hear from you! Whether you have questions, suggestions, or just want to share your experience learning Kazakh with us, please feel free to" %} <a href="{% url 'contact' %}">{% trans "contact us" %}</a>.
                     </p>
                 </div>
             </div>

@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Learn Kazakh - Online Learning Platform{% endblock %}
+{% block title %}{% trans "Learn Kazakh - Online Learning Platform" %}{% endblock %}
 
 {% block content %}
 <div class="hero-section">
     <div class="container text-center">
-        <h1 class="display-4 fw-bold mb-3">Learn Kazakh Language</h1>
-        <p class="lead mb-4">Master Kazakh with our interactive lessons, quizzes, and vocabulary tools</p>
+        <h1 class="display-4 fw-bold mb-3">{% trans "Learn Kazakh Language" %}</h1>
+        <p class="lead mb-4">{% trans "Master Kazakh with our interactive lessons, quizzes, and vocabulary tools" %}</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="{% url 'lesson_list' %}" class="btn btn-primary btn-lg px-4 gap-3">Start Learning</a>
-            <a href="{% url 'dictionary_home' %}" class="btn btn-outline-light btn-lg px-4">Explore Dictionary</a>
+            <a href="{% url 'lesson_list' %}" class="btn btn-primary btn-lg px-4 gap-3">{% trans "Start Learning" %}</a>
+            <a href="{% url 'dictionary_home' %}" class="btn btn-outline-light btn-lg px-4">{% trans "Explore Dictionary" %}</a>
         </div>
     </div>
 </div>
@@ -19,30 +20,30 @@
     <!-- Benefits Section -->
     <section class="mb-5">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Why Learn with Us?</h2>
-            <p class="lead">Our platform offers the best tools to help you learn Kazakh effectively</p>
+            <h2 class="fw-bold">{% trans "Why Learn with Us?" %}</h2>
+            <p class="lead">{% trans "Our platform offers the best tools to help you learn Kazakh effectively" %}</p>
         </div>
         
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fas fa-graduation-cap"></i>
-                    <h3>Structured Learning</h3>
-                    <p>Follow a well-structured curriculum designed by language experts from beginner to advanced levels.</p>
+                    <h3>{% trans "Structured Learning" %}</h3>
+                    <p>{% trans "Follow a well-structured curriculum designed by language experts from beginner to advanced levels." %}</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fas fa-video"></i>
-                    <h3>Video Tutorials</h3>
-                    <p>Learn with our comprehensive video lessons that explain grammar, vocabulary, and pronunciation.</p>
+                    <h3>{% trans "Video Tutorials" %}</h3>
+                    <p>{% trans "Learn with our comprehensive video lessons that explain grammar, vocabulary, and pronunciation." %}</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <i class="fas fa-clipboard-check"></i>
-                    <h3>Interactive Tests</h3>
-                    <p>Practice what you've learned with interactive quizzes and track your progress over time.</p>
+                    <h3>{% trans "Interactive Tests" %}</h3>
+                    <p>{% trans "Practice what you've learned with interactive quizzes and track your progress over time." %}</p>
                 </div>
             </div>
         </div>
@@ -51,8 +52,8 @@
     <!-- Featured Lessons -->
     <section class="mb-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">Featured Lessons</h2>
-            <a href="{% url 'lesson_list' %}" class="btn btn-outline-primary">View All Lessons</a>
+            <h2 class="fw-bold mb-0">{% trans "Featured Lessons" %}</h2>
+            <a href="{% url 'lesson_list' %}" class="btn btn-outline-primary">{% trans "View All Lessons" %}</a>
         </div>
         
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -70,13 +71,13 @@
                         <p class="card-text">{{ lesson.description|truncatewords:20 }}</p>
                     </div>
                     <div class="card-footer bg-transparent border-top-0">
-                        <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary w-100">Start Lesson</a>
+                        <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary w-100">{% trans "Start Lesson" %}</a>
                     </div>
                 </div>
             </div>
             {% empty %}
             <div class="col-12 text-center">
-                <p>No featured lessons available yet. Check back soon!</p>
+                <p>{% trans "No featured lessons available yet. Check back soon!" %}</p>
             </div>
             {% endfor %}
         </div>
@@ -89,9 +90,9 @@
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-language fa-3x text-primary mb-3"></i>
-                        <h4 class="card-title">Start Learning Kazakh</h4>
-                        <p class="card-text">Begin your journey to learn Kazakh with our comprehensive courses.</p>
-                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">View Lessons</a>
+                        <h4 class="card-title">{% trans "Start Learning Kazakh" %}</h4>
+                        <p class="card-text">{% trans "Begin your journey to learn Kazakh with our comprehensive courses." %}</p>
+                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">{% trans "View Lessons" %}</a>
                     </div>
                 </div>
             </div>
@@ -99,9 +100,9 @@
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-play-circle fa-3x text-primary mb-3"></i>
-                        <h4 class="card-title">Watch Video Tutorials</h4>
-                        <p class="card-text">Learn with our detailed video tutorials and improve your pronunciation.</p>
-                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">View Videos</a>
+                        <h4 class="card-title">{% trans "Watch Video Tutorials" %}</h4>
+                        <p class="card-text">{% trans "Learn with our detailed video tutorials and improve your pronunciation." %}</p>
+                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">{% trans "View Videos" %}</a>
                     </div>
                 </div>
             </div>
@@ -109,9 +110,9 @@
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
-                        <h4 class="card-title">Take Tests</h4>
-                        <p class="card-text">Test your knowledge and track your progress with our interactive quizzes.</p>
-                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">Try Quizzes</a>
+                        <h4 class="card-title">{% trans "Take Tests" %}</h4>
+                        <p class="card-text">{% trans "Test your knowledge and track your progress with our interactive quizzes." %}</p>
+                        <a href="{% url 'lesson_list' %}" class="btn btn-primary">{% trans "Try Quizzes" %}</a>
                     </div>
                 </div>
             </div>

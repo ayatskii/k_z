@@ -1,0 +1,604 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDERS
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-15 10:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: templates/base.html:10
+msgid "Qazaq Learn"
+msgstr "Qazaq Learn"
+
+#: templates/base.html:32
+msgid "Home"
+msgstr "Главная"
+
+#: templates/base.html:35
+msgid "Dictionary"
+msgstr "Словарь"
+
+#: templates/base.html:38
+msgid "Lessons"
+msgstr "Уроки"
+
+#: templates/base.html:41
+msgid "About"
+msgstr "О нас"
+
+#: templates/base.html:42
+msgid "Contact"
+msgstr "Контакты"
+
+#: templates/base.html:53
+msgid "Login"
+msgstr "Войти"
+
+#: templates/base.html:56
+msgid "Register"
+msgstr "Регистрация"
+
+#: templates/base.html:61
+msgid "My Profile"
+msgstr "Мой профиль"
+
+#: templates/base.html:64
+msgid "Saved Words"
+msgstr "Сохраненные слова"
+
+#: templates/base.html:67
+msgid "Logout"
+msgstr "Выйти"
+
+#: templates/base.html:89
+msgid "Learn Kazakh language easily online"
+msgstr "Изучайте казахский язык легко онлайн"
+
+#: templates/base.html:232
+msgid "Learn Kazakh language with interactive lessons and exercises."
+msgstr "Изучайте казахский язык с помощью интерактивных уроков и упражнений."
+
+#: templates/core/home.html:4
+msgid "Learn Kazakh - Online Learning Platform"
+msgstr "Изучение казахского - Онлайн-платформа обучения"
+
+#: templates/core/home.html:9
+msgid "Learn Kazakh Language"
+msgstr "Изучайте казахский язык"
+
+#: templates/core/home.html:10
+msgid "Master Kazakh with our interactive lessons, quizzes, and vocabulary tools"
+msgstr "Осваивайте казахский язык с помощью интерактивных уроков, тестов и словарных инструментов"
+
+#: templates/core/home.html:12
+msgid "Start Learning"
+msgstr "Начать обучение"
+
+#: templates/core/home.html:13
+msgid "Explore Dictionary"
+msgstr "Исследовать словарь"
+
+#: templates/core/home.html:22
+msgid "Why Learn with Us?"
+msgstr "Почему учиться с нами?"
+
+#: templates/core/home.html:23
+msgid "Our platform offers the best tools to help you learn Kazakh effectively"
+msgstr "Наша платформа предлагает лучшие инструменты для эффективного изучения казахского языка"
+
+#: templates/core/home.html:29
+msgid "Structured Learning"
+msgstr "Структурированное обучение"
+
+#: templates/core/home.html:30
+msgid "Follow a well-structured curriculum designed by language experts from beginner to advanced levels."
+msgstr "Следуйте хорошо структурированной программе, разработанной языковыми экспертами, от начального до продвинутого уровня."
+
+#: templates/core/home.html:35
+msgid "Video Tutorials"
+msgstr "Видеоуроки"
+
+#: templates/core/home.html:36
+msgid "Learn with our comprehensive video lessons that explain grammar, vocabulary, and pronunciation."
+msgstr "Учитесь с помощью наших комплексных видеоуроков, объясняющих грамматику, словарный запас и произношение."
+
+#: templates/core/home.html:41
+msgid "Interactive Tests"
+msgstr "Интерактивные тесты"
+
+#: templates/core/home.html:42
+msgid "Practice what you've learned with interactive quizzes and track your progress over time."
+msgstr "Практикуйте то, что вы выучили, с помощью интерактивных тестов и отслеживайте свой прогресс."
+
+#: templates/core/home.html:52
+msgid "Featured Lessons"
+msgstr "Избранные уроки"
+
+#: templates/core/home.html:53
+msgid "View All Lessons"
+msgstr "Просмотреть все уроки"
+
+#: templates/core/home.html:71
+msgid "Start Lesson"
+msgstr "Начать урок"
+
+#: templates/core/home.html:80
+msgid "No featured lessons available yet. Check back soon!"
+msgstr "Избранные уроки пока недоступны. Проверьте позже!"
+
+#: templates/core/home.html:93
+msgid "Start Learning Kazakh"
+msgstr "Начать изучение казахского"
+
+#: templates/core/home.html:94
+msgid "Begin your journey to learn Kazakh with our comprehensive courses."
+msgstr "Начните свой путь изучения казахского языка с нашими комплексными курсами."
+
+#: templates/core/home.html:95
+msgid "View Lessons"
+msgstr "Просмотреть уроки"
+
+#: templates/core/home.html:100
+msgid "Watch Video Tutorials"
+msgstr "Смотреть видеоуроки"
+
+#: templates/core/home.html:101
+msgid "Learn with our detailed video tutorials and improve your pronunciation."
+msgstr "Учитесь с помощью наших подробных видеоуроков и улучшайте свое произношение."
+
+#: templates/core/home.html:102
+msgid "View Videos"
+msgstr "Смотреть видео"
+
+#: templates/core/home.html:107
+msgid "Take Tests"
+msgstr "Пройти тесты"
+
+#: templates/core/home.html:108
+msgid "Test your knowledge and track your progress with our interactive quizzes."
+msgstr "Проверьте свои знания и отслеживайте прогресс с помощью наших интерактивных тестов."
+
+#: templates/core/home.html:109
+msgid "Try Quizzes"
+msgstr "Попробовать тесты"
+
+#: templates/core/about.html:4
+msgid "About Us - Learn Kazakh"
+msgstr "О нас - Изучение казахского"
+
+#: templates/core/about.html:9
+msgid "About Learn Kazakh"
+msgstr "О проекте Изучение казахского"
+
+#: templates/core/about.html:12
+msgid "Our Mission"
+msgstr "Наша миссия"
+
+#: templates/core/about.html:14
+msgid "We are dedicated to making the Kazakh language accessible to everyone, regardless of their background or experience level."
+msgstr "Мы стремимся сделать казахский язык доступным для всех, независимо от их происхождения или уровня опыта."
+
+#: templates/core/about.html:17
+msgid "The Kazakh language is the state language of Kazakhstan and is spoken by millions of people. Our platform provides comprehensive resources for learning Kazakh in an engaging and interactive way. We believe that language learning should be enjoyable, practical, and suited to the modern learner's needs."
+msgstr "Казахский язык является государственным языком Казахстана и на нем говорят миллионы людей. Наша платформа предоставляет комплексные ресурсы для изучения казахского языка увлекательным и интерактивным способом. Мы считаем, что изучение языка должно быть приятным, практичным и соответствовать потребностям современного ученика."
+
+#: templates/core/about.html:27
+msgid "Our Approach"
+msgstr "Наш подход"
+
+#: templates/core/about.html:29
+msgid "Our teaching methodology is based on modern language learning techniques that focus on:"
+msgstr "Наша методика обучения основана на современных методах изучения языка, которые фокусируются на:"
+
+#: templates/core/about.html:32
+msgid "Practical communication skills"
+msgstr "Практические навыки общения"
+
+#: templates/core/about.html:33
+msgid "Cultural context and understanding"
+msgstr "Культурный контекст и понимание"
+
+#: templates/core/about.html:34
+msgid "Progressive learning from basic to advanced"
+msgstr "Прогрессивное обучение от базового до продвинутого уровня"
+
+#: templates/core/about.html:35
+msgid "Interactive exercises and immediate feedback"
+msgstr "Интерактивные упражнения и немедленная обратная связь"
+
+#: templates/core/about.html:36
+msgid "Audio and visual learning aids"
+msgstr "Аудио и визуальные средства обучения"
+
+#: templates/core/about.html:44
+msgid "Our Platform"
+msgstr "Наша платформа"
+
+#: templates/core/about.html:46
+msgid "Our platform offers:"
+msgstr "Наша платформа предлагает:"
+
+#: templates/core/about.html:49
+msgid "Structured lessons organized by proficiency levels (A1-C2)"
+msgstr "Структурированные уроки, организованные по уровням владения (A1-C2)"
+
+#: templates/core/about.html:50
+msgid "Video tutorials with native speakers"
+msgstr "Видеоуроки с носителями языка"
+
+#: templates/core/about.html:51
+msgid "Interactive tests and quizzes"
+msgstr "Интерактивные тесты и викторины"
+
+#: templates/core/about.html:52
+msgid "Comprehensive Kazakh-English dictionary"
+msgstr "Полный казахско-английский словарь"
+
+#: templates/core/about.html:53
+msgid "Progress tracking and learning analytics"
+msgstr "Отслеживание прогресса и аналитика обучения"
+
+#: templates/core/about.html:54
+msgid "Mobile-friendly interface for learning on the go"
+msgstr "Мобильный интерфейс для обучения в пути"
+
+#: templates/core/about.html:65
+msgid "Our Team"
+msgstr "Наша команда"
+
+#: templates/core/about.html:67
+msgid "Our team consists of professional linguists, native Kazakh speakers, educational technology experts, and language enthusiasts. Together, we work to create the best possible resources for learning the Kazakh language."
+msgstr "Наша команда состоит из профессиональных лингвистов, носителей казахского языка, экспертов в области образовательных технологий и энтузиастов языка. Вместе мы работаем над созданием лучших ресурсов для изучения казахского языка."
+
+#: templates/core/about.html:70
+msgid "We're constantly improving our platform based on user feedback and the latest research in language acquisition to provide the most effective learning experience."
+msgstr "Мы постоянно совершенствуем нашу платформу на основе отзывов пользователей и последних исследований в области усвоения языка, чтобы обеспечить наиболее эффективный опыт обучения."
+
+#: templates/core/about.html:78
+msgid "Get in Touch"
+msgstr "Свяжитесь с нами"
+
+#: templates/core/about.html:80
+msgid "We'd love to hear from you! Whether you have questions, suggestions, or just want to share your experience learning Kazakh with us, please feel free to"
+msgstr "Мы будем рады услышать от вас! Если у вас есть вопросы, предложения или вы просто хотите поделиться своим опытом изучения казахского языка с нами, пожалуйста,"
+
+#: templates/core/about.html:80
+msgid "contact us"
+msgstr "свяжитесь с нами"
+
+#: templates/core/contact.html:4
+msgid "Contact Us - Learn Kazakh"
+msgstr "Связаться с нами - Изучение казахского"
+
+#: templates/core/contact.html:9
+msgid "Contact Us"
+msgstr "Свяжитесь с нами"
+
+#: templates/core/contact.html:13
+msgid "We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible."
+msgstr "Мы будем рады услышать от вас! Заполните форму ниже, и мы свяжемся с вами как можно скорее."
+
+#: templates/core/contact.html:20
+msgid "Your Name"
+msgstr "Ваше имя"
+
+#: templates/core/contact.html:22
+msgid "Please provide your name."
+msgstr "Пожалуйста, укажите ваше имя."
+
+#: templates/core/contact.html:27
+msgid "Email Address"
+msgstr "Адрес электронной почты"
+
+#: templates/core/contact.html:29
+msgid "Please provide a valid email address."
+msgstr "Пожалуйста, укажите действительный адрес электронной почты."
+
+#: templates/core/contact.html:34
+msgid "Subject"
+msgstr "Тема"
+
+#: templates/core/contact.html:36
+msgid "Please provide a subject."
+msgstr "Пожалуйста, укажите тему."
+
+#: templates/core/contact.html:41
+msgid "Message"
+msgstr "Сообщение"
+
+#: templates/core/contact.html:43
+msgid "Please provide a message."
+msgstr "Пожалуйста, напишите сообщение."
+
+#: templates/core/contact.html:48
+msgid "Send Message"
+msgstr "Отправить сообщение"
+
+#: templates/core/contact.html:59
+msgid "Email"
+msgstr "Электронная почта"
+
+#: templates/core/contact.html:68
+msgid "Phone"
+msgstr "Телефон"
+
+#: templates/core/contact.html:77
+msgid "Address"
+msgstr "Адрес"
+
+#: templates/core/contact.html:78
+msgid "123 Abay Avenue"
+msgstr "123 проспект Абая"
+
+#: templates/core/contact.html:78
+msgid "Almaty, Kazakhstan"
+msgstr "Алматы, Казахстан"
+
+#: templates/core/contact.html:86
+msgid "Frequently Asked Questions"
+msgstr "Часто задаваемые вопросы"
+
+#: templates/core/contact.html:92
+msgid "How much does it cost to use Learn Kazakh?"
+msgstr "Сколько стоит использование платформы Изучение казахского?"
+
+#: templates/core/contact.html:96
+msgid "Our basic learning resources are free for everyone. We also offer premium features for advanced learners that require a subscription."
+msgstr "Наши базовые учебные ресурсы бесплатны для всех. Мы также предлагаем премиум-функции для продвинутых учеников, требующие подписки."
+
+#: templates/core/contact.html:103
+msgid "Do I need any prior knowledge of Kazakh to start?"
+msgstr "Нужны ли мне предварительные знания казахского языка, чтобы начать?"
+
+#: templates/core/contact.html:107
+msgid "No, our courses start from absolute beginner (A1) level, so no prior knowledge is required."
+msgstr "Нет, наши курсы начинаются с уровня абсолютного новичка (A1), поэтому предварительные знания не требуются."
+
+#: templates/core/contact.html:114
+msgid "How long will it take to become fluent in Kazakh?"
+msgstr "Сколько времени потребуется, чтобы свободно говорить на казахском языке?"
+
+#: templates/core/contact.html:118
+msgid "The time to achieve fluency varies greatly depending on your background, dedication, and learning pace. With consistent practice, many learners reach conversational fluency within 1-2 years."
+msgstr "Время достижения беглости сильно варьируется в зависимости от вашего опыта, преданности и темпа обучения. При регулярной практике многие ученики достигают разговорной беглости в течение 1-2 лет."
+
+#: templates/dictionary/category_detail.html:22
+#: templates/dictionary/word_detail.html:20
+msgid "Categories"
+msgstr "Категории"
+
+#: templates/dictionary/category_detail.html:80
+msgid "Words in this category"
+msgstr "Слова в этой категории"
+
+#: templates/dictionary/category_detail.html:86
+msgid "Sort"
+msgstr "Сортировать"
+
+#: templates/dictionary/category_detail.html:95
+msgid "Search in category"
+msgstr "Поиск в категории"
+
+#: templates/dictionary/category_detail.html:107
+#: templates/dictionary/search_results.html:69
+#: templates/dictionary/word_detail.html:45
+msgid "Kazakh"
+msgstr "Казахский"
+
+#: templates/dictionary/category_detail.html:108
+#: templates/dictionary/search_results.html:70
+#: templates/dictionary/word_detail.html:47
+msgid "English"
+msgstr "Английский"
+
+#: templates/dictionary/category_detail.html:109
+#: templates/dictionary/search_results.html:71
+msgid "Pronunciation"
+msgstr "Произношение"
+
+#: templates/dictionary/category_detail.html:110
+#: templates/dictionary/search_results.html:72
+msgid "Actions"
+msgstr "Действия"
+
+#: templates/dictionary/category_detail.html:120
+#: templates/dictionary/search_results.html:82
+msgid "View"
+msgstr "Просмотр"
+
+#: templates/dictionary/category_detail.html:178
+msgid "No words found in this category."
+msgstr "В этой категории не найдено слов."
+
+#: templates/dictionary/search_results.html:9
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: templates/dictionary/search_results.html:23
+msgid "Search Results for"
+msgstr "Результаты поиска для"
+
+#: templates/dictionary/search_results.html:39
+msgid "Search for words in Kazakh or English"
+msgstr "Поиск слов на казахском или английском"
+
+#: templates/dictionary/search_results.html:42
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/dictionary/search_results.html:48
+msgid "Found"
+msgstr "Найдено"
+
+#: templates/dictionary/word_detail.html:9
+msgid "Word Details"
+msgstr "Детали слова"
+
+#: templates/dictionary/word_detail.html:11
+msgid "Word not found"
+msgstr "Слово не найдено"
+
+#: templates/dictionary/word_detail.html:56
+msgid "Listen"
+msgstr "Прослушать"
+
+#: templates/dictionary/word_detail.html:63
+#: templates/dictionary/word_detail.html:75
+#: templates/dictionary/word_detail.html:87
+msgid "Definition"
+msgstr "Определение"
+
+#: templates/dictionary/word_detail.html:99
+#: templates/dictionary/word_detail.html:111
+#: templates/dictionary/word_detail.html:123
+msgid "Examples"
+msgstr "Примеры"
+
+#: templates/dictionary/word_detail.html:138
+msgid "Related Words"
+msgstr "Связанные слова"
+
+#: templates/dictionary/word_detail.html:221
+msgid "Save Word"
+msgstr "Сохранить слово"
+
+#: templates/dictionary/word_detail.html:224
+msgid "Word Saved"
+msgstr "Слово сохранено"
+
+#: templates/dictionary/word_detail.html:232
+msgid "Back to Dictionary Home"
+msgstr "Назад на главную страницу словаря"
+
+#: templates/dictionary/word_detail.html:240
+msgid "The requested word was not found in our dictionary."
+msgstr "Запрошенное слово не найдено в нашем словаре."
+
+#: templates/lessons/lesson_detail.html:5
+msgid "Learn Kazakh"
+msgstr "Изучение казахского"
+
+#: templates/lessons/lesson_detail.html:23
+msgid "Completed"
+msgstr "Завершено"
+
+#: templates/lessons/lesson_detail.html:29
+msgid "Saved"
+msgstr "Сохранено"
+
+#: templates/lessons/lesson_detail.html:31
+msgid "Save Lesson"
+msgstr "Сохранить урок"
+
+#: templates/lessons/lesson_detail.html:49
+msgid "Go to Test"
+msgstr "Перейти к тесту"
+
+#: templates/lessons/lesson_detail.html:59
+msgid "Your Progress"
+msgstr "Ваш прогресс"
+
+#: templates/lessons/lesson_test.html:35
+msgid "Submit Answers"
+msgstr "Отправить ответы"
+
+#: templates/lessons/lesson_test.html:5
+#: templates/lessons/lesson_test.html:11
+msgid "Test"
+msgstr "Тест"
+
+#: templates/lessons/lesson_test.html:21
+msgid "Question"
+msgstr "Вопрос"
+
+msgid "Learn More"
+msgstr "Узнать больше"
+
+msgid "View Words"
+msgstr "Посмотреть слова"
+
+msgid "View All"
+msgstr "Посмотреть все"
+
+msgid "Browse Words"
+msgstr "Просмотр слов"
+
+msgid "Back to Dictionary"
+msgstr "Назад к словарю"
+
+msgid "Search for a word in Kazakh or English"
+msgstr "Поиск слова на казахском или русском"
+
+msgid "Explore Words"
+msgstr "Исследовать слова"
+
+msgid "Browse by Category"
+msgstr "Просмотр по категориям"
+
+msgid "Dictionary Categories"
+msgstr "Категории словаря"
+
+msgid "Browse words by category to help organize your learning."
+msgstr "Просматривайте слова по категориям, чтобы организовать свое обучение."
+
+msgid "No categories available yet. Check back later!"
+msgstr "Категории пока недоступны. Проверьте позже!"
+
+msgid "Kazakh (A-Z)"
+msgstr "Казахский (А-Я)"
+
+msgid "English (A-Z)"
+msgstr "Английский (А-Я)"
+
+msgid "Russian (A-Z)"
+msgstr "Русский (А-Я)"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Word Relationships"
+msgstr "Связи слова"
+
+msgid "Synonyms"
+msgstr "Синонимы"
+
+msgid "Antonyms"
+msgstr "Антонимы"
+
+msgid "Grammar Notes"
+msgstr "Грамматические заметки"
+
+msgid "No grammar notes available for this word."
+msgstr "Для этого слова нет грамматических заметок."
+
+msgid "Category not found"
+msgstr "Категория не найдена"
+
+msgid "The requested category was not found in our dictionary."
+msgstr "Запрошенная категория не найдена в нашем словаре."
+
+msgid "Qazaq Learn Dictionary"
+msgstr "Словарь казахского языка"
+
+msgid "Find and explore Kazakh words with translations, pronunciation guides, and examples."
+msgstr "Ищите и изучайте казахские слова с переводами, руководствами по произношению и примерами."
+
+msgid "words"
+msgstr "слова"

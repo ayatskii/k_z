@@ -1,128 +1,183 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}{{ category.name }} Words - Qazaq Learn{% endblock %}
+{% block title %}
+{% if category %}
+  {{ category.get_name }} - {% trans "Qazaq Learn" %}
+{% else %}
+  {% trans "Category not found" %} - {% trans "Qazaq Learn" %}
+{% endif %}
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-12 mb-4">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">Dictionary</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
-                </ol>
-            </nav>
+<div class="container category-detail-page">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">{% trans "Dictionary" %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'category_list' %}">{% trans "Categories" %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {% if category %}
+          {{ category.get_name }}
+        {% else %}
+          {% trans "Category not found" %}
+        {% endif %}
+      </li>
+    </ol>
+  </nav>
+
+  {% if category %}
+  <div class="card mb-4">
+    <div class="card-header">
+      <h1 class="h3 mb-0">
+        {{ category.get_name }}
+      </h1>
+    </div>
+    <div class="card-body">
+      <p class="lead">
+        {{ category.get_description }}
+      </p>
+
+      {% if category.image %}
+      <div class="text-center mb-4">
+        <img src="{{ category.image.url }}" alt="{{ category.get_name }}" class="img-fluid rounded category-image" style="max-height: 200px;">
+      </div>
+      {% endif %}
+      
+      <div class="mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h4">{% trans "Words in this category" %} ({{ category.words.count }})</h2>
+          
+          {% if category.words.count > 0 %}
+          <div class="d-flex gap-2">
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-sort me-1"></i> {% trans "Sort" %}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                <li><a class="dropdown-item" href="?sort=kz">{% trans "Kazakh (A-Z)" %}</a></li>
+                <li><a class="dropdown-item" href="?sort=en">{% trans "English (A-Z)" %}</a></li>
+                <li><a class="dropdown-item" href="?sort=ru">{% trans "Russian (A-Z)" %}</a></li>
+              </ul>
+            </div>
             
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h1 class="h3 mb-0">{{ category.name }} Words</h1>
-                    <span class="badge bg-primary">{{ words.count }} words</span>
-                </div>
-                <div class="card-body">
-                    <p class="lead mb-4">{{ category.description }}</p>
-                    
-                    <div class="search-bar mb-4">
-                        <form action="{% url 'search_word' %}" method="get" class="d-flex">
-                            <input type="text" name="q" class="form-control" placeholder="Search in {{ category.name }} words..." aria-label="Search" required>
-                            <button class="btn btn-primary ms-2" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
-                    </div>
-                    
-                    {% if words %}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Kazakh</th>
-                                    <th>English</th>
-                                    <th>Pronunciation</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for word in words %}
-                                <tr>
-                                    <td class="fw-bold">{{ word.word_kz }}</td>
-                                    <td>{{ word.word_en }}</td>
-                                    <td>
-                                        {% if word.pronunciation %}
-                                        <span class="text-muted">[{{ word.pronunciation }}]</span>
-                                        {% else %}
-                                        <span class="text-muted">—</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-eye"></i> View
-                                        </a>
-                                        
-                                        {% if user.is_authenticated %}
-                                            {% if word in user.saved_words.all %}
-                                            <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-sm btn-outline-secondary">
-                                                <i class="fas fa-bookmark"></i> Saved
-                                            </a>
-                                            {% else %}
-                                            <a href="{% url 'save_word' word.id %}" class="btn btn-sm btn-outline-secondary">
-                                                <i class="far fa-bookmark"></i> Save
-                                            </a>
-                                            {% endif %}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    {% else %}
-                    <div class="alert alert-info text-center">
-                        <i class="fas fa-info-circle fa-2x mb-3"></i>
-                        <p>No words in this category yet. Check back later!</p>
-                    </div>
+            <form class="d-flex" action="" method="get">
+              <input class="form-control me-2" type="search" name="search" placeholder="{% trans 'Search in category' %}" aria-label="Search" value="{{ request.GET.search|default:'' }}">
+              <button class="btn btn-outline-primary" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+          {% endif %}
+        </div>
+        
+        {% if category.words.count > 0 %}
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>{% trans "Kazakh" %}</th>
+                  {% get_current_language as LANGUAGE_CODE %}
+                  {% if LANGUAGE_CODE == 'ru' %}
+                  <th>{% trans "Russian" %}</th>
+                  {% else %}
+                  <th>{% trans "English" %}</th>
+                  {% endif %}
+                  <th>{% trans "Pronunciation" %}</th>
+                  <th class="text-end">{% trans "Actions" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for word in words %}
+                <tr>
+                  <td class="fw-bold">{{ word.word_kz }}</td>
+                  <td>{{ word.get_word }}</td>
+                  <td>{% if word.pronunciation %}[{{ word.pronunciation }}]{% endif %}</td>
+                  <td class="text-end">
+                    <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-eye"></i> {% trans "View" %}
+                    </a>
+                    {% if user.is_authenticated %}
+                      {% if word in user.saved_words.all %}
+                      <a href="{% url 'remove_saved_word' word.id %}?next={{ request.path }}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-bookmark"></i>
+                      </a>
+                      {% else %}
+                      <a href="{% url 'save_word' word.id %}?next={{ request.path }}" class="btn btn-sm btn-outline-secondary">
+                        <i class="far fa-bookmark"></i>
+                      </a>
+                      {% endif %}
                     {% endif %}
-                </div>
-            </div>
-        </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+          {% if is_paginated %}
+          <nav aria-label="{% trans 'Word pagination' %}">
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="First">
+                  <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% endif %}
+              
+              {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ num }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+                {% endif %}
+              {% endfor %}
+              
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Last">
+                  <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+          {% endif %}
+        {% else %}
+          <div class="alert alert-info">
+            {% trans "No words found in this category." %}
+          </div>
+        {% endif %}
+      </div>
     </div>
-    
-    {% if words %}
-    <div class="row">
-        <div class="col-12 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="h4 mb-0">Quick Learn</h2>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        {% for word in words|slice:":6" %}
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ word.word_kz }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ word.word_en }}</h6>
-                                    <p class="card-text small">{{ word.definition|truncatewords:10 }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <a href="{% url 'word_detail' word.id %}" class="btn btn-sm btn-primary w-100">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    
-    <div class="row">
-        <div class="col-12 text-center">
-            <a href="{% url 'dictionary_home' %}" class="btn btn-outline-primary">
-                <i class="fas fa-arrow-left"></i> Back to Dictionary
-            </a>
-        </div>
-    </div>
+  </div>
+  
+  <div class="mt-3">
+    <a href="{% url 'category_list' %}" class="btn btn-outline-secondary">
+      <i class="fas fa-arrow-left me-1"></i> {% trans "Back to Categories" %}
+    </a>
+  </div>
+  {% else %}
+  <div class="alert alert-warning">
+    <h4>{% trans "Category not found" %}</h4>
+    <p>{% trans "The requested category was not found in our dictionary." %}</p>
+    <a href="{% url 'category_list' %}" class="btn btn-primary mt-2">
+      <i class="fas fa-arrow-left me-1"></i> {% trans "Back to Categories" %}
+    </a>
+  </div>
+  {% endif %}
 </div>
 {% endblock %} 

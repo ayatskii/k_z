@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import Word, Category
 from users.models import SavedWord
+from django.utils.translation import get_language
 
 def dictionary_home(request):
     random_words = Word.objects.order_by('?')[:10]
@@ -22,7 +23,8 @@ def search_word(request):
     if query:
         words = Word.objects.filter(
             Q(word_kz__icontains=query) | 
-            Q(word_en__icontains=query)
+            Q(word_en__icontains=query) |
+            Q(word_ru__icontains=query)
         ).order_by('word_kz')
     
     context = {

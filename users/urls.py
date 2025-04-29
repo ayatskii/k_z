@@ -7,4 +7,5 @@ urlpatterns = [
     path('saved-words/', views.saved_words, name='saved_words'),
     path('saved-words/remove/<int:word_id>/', views.remove_saved_word, name='remove_saved_word'),
     path('progress/', views.user_progress, name='user_progress'),
+    path('theme/<str:theme>/', views.change_theme, name='change_theme'),
 ] 

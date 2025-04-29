@@ -9,10 +9,16 @@ class CustomUser(AbstractUser):
         ('dark', _('Dark Theme')),
     ]
     
+    LANGUAGE_CHOICES = [
+        ('en', _('English')),
+        ('ru', _('Russian')),
+    ]
+    
     email = models.EmailField(_('email address'), unique=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     dark_mode = models.BooleanField(default=False)
     theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='light')
+    language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES, default='en')
     
     def __str__(self):
         return self.email

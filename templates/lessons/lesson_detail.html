@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}{{ lesson.title_en }} - Learn Kazakh{% endblock %}
+{% block title %}{{ lesson.get_title }} - {% trans "Learn Kazakh" %}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -9,46 +10,46 @@
         <div class="col-lg-8">
             <div class="card mb-4">
                 {% if lesson.image %}
-                <img src="{{ lesson.image.url }}" class="card-img-top" alt="{{ lesson.title_en }}">
+                <img src="{{ lesson.image.url }}" class="card-img-top" alt="{{ lesson.get_title }}">
                 {% endif %}
                 <div class="card-body">
-                    <h1 class="card-title">{{ lesson.title_en }}</h1>
+                    <h1 class="card-title">{{ lesson.get_title }}</h1>
                     <h4 class="card-subtitle mb-3 text-muted">{{ lesson.title_kz }}</h4>
                     
                     <div class="mb-4">
-                        <span class="badge bg-primary">{{ lesson.level.name }}</span>
+                        <span class="badge bg-primary">{{ lesson.level.get_name }}</span>
                         {% if user.is_authenticated and user_progress and user_progress.completed %}
-                        <span class="badge bg-success">Completed</span>
+                        <span class="badge bg-success">{% trans "Completed" %}</span>
                         {% endif %}
                         
                         {% if user.is_authenticated %}
                         <a href="{% url 'save_lesson' lesson.slug %}" class="btn btn-sm btn-outline-primary float-end ms-2">
                             {% if user_progress and user_progress.completed %}
-                            <i class="fas fa-bookmark"></i> Saved
+                            <i class="fas fa-bookmark"></i> {% trans "Saved" %}
                             {% else %}
-                            <i class="far fa-bookmark"></i> Save Lesson
+                            <i class="far fa-bookmark"></i> {% trans "Save Lesson" %}
                             {% endif %}
                         </a>
                         {% endif %}
                     </div>
                     
                     <div class="mb-4">
-                        {{ lesson.description|linebreaks }}
+                        {{ lesson.get_description|linebreaks }}
                     </div>
                     
                     {% if lesson.video_url %}
                     <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="{{ lesson.video_url }}" title="{{ lesson.title_en }}" allowfullscreen></iframe>
+                        <iframe src="{{ lesson.video_url }}" title="{{ lesson.get_title }}" allowfullscreen></iframe>
                     </div>
                     {% endif %}
                     
                     <div class="lesson-content mb-4">
-                        {{ lesson.content|safe }}
+                        {{ lesson.get_content|safe }}
                     </div>
                     
                     <div class="text-center mt-5">
                         <a href="{% url 'lesson_test' lesson.slug %}" class="btn btn-lg btn-primary">
-                            <i class="fas fa-clipboard-check me-2"></i> Go to Test
+                            <i class="fas fa-clipboard-check me-2"></i> {% trans "Go to Test" %}
                         </a>
                     </div>
                 </div>
@@ -58,25 +59,25 @@
         <div class="col-lg-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Your Progress</h5>
+                    <h5 class="mb-0">{% trans "Your Progress" %}</h5>
                 </div>
                 <div class="card-body">
                     {% if user.is_authenticated %}
                         {% if user_progress %}
                             <div class="mb-3">
-                                <label class="form-label">Completion Status</label>
+                                <label class="form-label">{% trans "Completion Status" %}</label>
                                 <div class="progress">
                                     {% if user_progress.completed %}
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Completed</div>
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{% trans "Completed" %}</div>
                                     {% else %}
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">In Progress</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{% trans "In Progress" %}</div>
                                     {% endif %}
                                 </div>
                             </div>
                             
                             {% if user_progress.score > 0 %}
                             <div class="mb-3">
-                                <label class="form-label">Test Score</label>
+                                <label class="form-label">{% trans "Test Score" %}</label>
                                 <div class="progress">
                                     <div class="progress-bar {% if user_progress.score >= 80 %}bg-success{% elif user_progress.score >= 60 %}bg-info{% elif user_progress.score >= 40 %}bg-warning{% else %}bg-danger{% endif %}" role="progressbar" style="width: {{ user_progress.score }}%" aria-valuenow="{{ user_progress.score }}" aria-valuemin="0" aria-valuemax="100">{{ user_progress.score }}%</div>
                                 </div>
@@ -85,21 +86,21 @@
                             
                             {% if user_progress.completed %}
                             <div class="alert alert-success">
-                                <i class="fas fa-check-circle me-2"></i> You've completed this lesson.
+                                <i class="fas fa-check-circle me-2"></i> {% trans "You've completed this lesson." %}
                             </div>
                             {% else %}
                             <div class="alert alert-info">
-                                <i class="fas fa-info-circle me-2"></i> Complete the test to mark this lesson as finished.
+                                <i class="fas fa-info-circle me-2"></i> {% trans "Complete the test to mark this lesson as finished." %}
                             </div>
                             {% endif %}
                         {% else %}
                             <div class="alert alert-info">
-                                <i class="fas fa-info-circle me-2"></i> Your progress will be tracked as you study this lesson.
+                                <i class="fas fa-info-circle me-2"></i> {% trans "Your progress will be tracked as you study this lesson." %}
                             </div>
                         {% endif %}
                     {% else %}
                         <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-circle me-2"></i> <a href="{% url 'account_login' %}">Log in</a> or <a href="{% url 'account_signup' %}">register</a> to track your progress.
+                            <i class="fas fa-exclamation-circle me-2"></i> <a href="{% url 'account_login' %}">{% trans "Log in" %}</a> {% trans "or" %} <a href="{% url 'account_signup' %}">{% trans "register" %}</a> {% trans "to track your progress." %}
                         </div>
                     {% endif %}
                 </div>
@@ -107,15 +108,15 @@
             
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Related Lessons</h5>
+                    <h5 class="mb-0">{% trans "Related Lessons" %}</h5>
                 </div>
                 <div class="list-group list-group-flush">
                     {% for related_lesson in lesson.level.lessons.all|slice:":5" %}
                         {% if related_lesson != lesson %}
                         <a href="{{ related_lesson.get_absolute_url }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">{{ related_lesson.title_en }}</h6>
-                                <small>{{ related_lesson.level.name }}</small>
+                                <h6 class="mb-1">{{ related_lesson.get_title }}</h6>
+                                <small>{{ related_lesson.level.get_name }}</small>
                             </div>
                             <small class="text-muted">{{ related_lesson.title_kz }}</small>
                         </a>

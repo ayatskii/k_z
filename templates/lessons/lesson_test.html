@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Test: {{ lesson.title_en }} - Learn Kazakh{% endblock %}
+{% block title %}{% trans "Test" %}: {{ lesson.get_title }} - {% trans "Learn Kazakh" %}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <h1 class="h3 mb-0">Test: {{ lesson.title_en }}</h1>
+            <h1 class="h3 mb-0">{% trans "Test" %}: {{ lesson.get_title }}</h1>
         </div>
         <div class="card-body">
-            <p class="lead mb-4">Answer all questions to complete this test and track your progress.</p>
+            <p class="lead mb-4">{% trans "Answer all questions to complete this test and track your progress." %}</p>
             
             {% if questions %}
                 <form method="post" action="{% url 'submit_test' lesson.slug %}">
@@ -19,14 +20,14 @@
                     {% for question in questions %}
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="mb-0">Question {{ forloop.counter }}: {{ question.question_text }}</h5>
+                            <h5 class="mb-0">{% trans "Question" %} {{ forloop.counter }}: {{ question.get_question_text }}</h5>
                         </div>
                         <div class="card-body">
                             {% for answer in question.answers.all %}
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="question_{{ question.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required>
                                 <label class="form-check-label" for="answer_{{ answer.id }}">
-                                    {{ answer.answer_text }}
+                                    {{ answer.get_answer_text }}
                                 </label>
                             </div>
                             {% endfor %}
@@ -35,16 +36,16 @@
                     {% endfor %}
                     
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Submit Answers</button>
-                        <a href="{{ lesson.get_absolute_url }}" class="btn btn-outline-secondary btn-lg ms-2">Back to Lesson</a>
+                        <button type="submit" class="btn btn-primary btn-lg">{% trans "Submit Answers" %}</button>
+                        <a href="{{ lesson.get_absolute_url }}" class="btn btn-outline-secondary btn-lg ms-2">{% trans "Back to Lesson" %}</a>
                     </div>
                 </form>
             {% else %}
                 <div class="alert alert-info">
-                    <p>There are no test questions available for this lesson yet.</p>
+                    <p>{% trans "There are no test questions available for this lesson yet." %}</p>
                 </div>
                 <div class="text-center mt-4">
-                    <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary btn-lg">Back to Lesson</a>
+                    <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary btn-lg">{% trans "Back to Lesson" %}</a>
                 </div>
             {% endif %}
         </div>
