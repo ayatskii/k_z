@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container word-detail-page">
+<div class="container word-detail-page py-4">
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'dictionary_home' %}">{% trans "Dictionary" %}</a></li>
@@ -22,62 +22,73 @@
   {% if word %}
   <div class="row">
     <div class="col-md-8">
-      <div class="card mb-4">
-        <div class="card-header">
-          <div class="d-flex justify-content-between align-items-center">
-            <h1 class="h3 mb-0">{{ word.word_kz }}</h1>
-            {% if user.is_authenticated %}
-              {% if is_saved %}
-              <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-outline-secondary btn-sm">
-                <i class="fas fa-bookmark"></i> {% trans "Saved" %}
-              </a>
-              {% else %}
-              <a href="{% url 'save_word' word.id %}" class="btn btn-outline-primary btn-sm">
-                <i class="far fa-bookmark"></i> {% trans "Save" %}
-              </a>
-              {% endif %}
+      <div class="card mb-4 shadow-sm border-0">
+        <div class="position-relative">
+          <div class="word-header bg-primary text-white p-4 d-flex justify-content-between align-items-center">
+            <div>
+              <h1 class="display-4 fw-bold mb-0">{{ word.word_kz }}</h1>
+              <h5 class="mb-0 mt-2 text-white-50">{{ word.get_word }}</h5>
+            </div>
+            <div class="word-letter-display bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+              <span class="display-5 fw-bold">{{ word.word_kz|slice:":1" }}</span>
+            </div>
+          </div>
+          {% if user.is_authenticated %}
+          <div class="position-absolute top-0 end-0 m-2">
+            {% if is_saved %}
+            <a href="{% url 'remove_saved_word' word.id %}" class="btn btn-light btn-sm">
+              <i class="fas fa-bookmark text-warning"></i> {% trans "Saved" %}
+            </a>
+            {% else %}
+            <a href="{% url 'save_word' word.id %}" class="btn btn-light btn-sm">
+              <i class="far fa-bookmark"></i> {% trans "Save" %}
+            </a>
             {% endif %}
           </div>
+          {% endif %}
         </div>
-        <div class="card-body">
-          <h5 class="card-subtitle mb-3 text-muted">{{ word.get_word }}</h5>
+        <div class="card-body p-4">
           
           {% if word.pronunciation %}
-          <div class="pronunciation mb-3">
-            <span class="badge bg-light text-dark p-2">
-              [{{ word.pronunciation }}]
-              {% if word.audio %}
-              <button class="btn btn-sm btn-outline-secondary ms-2 pronunciation-btn" data-audio-id="audio_{{ word.id }}">
-                <i class="fas fa-volume-up"></i>
-              </button>
-              <audio id="audio_{{ word.id }}" src="{{ word.audio.url }}"></audio>
-              {% endif %}
-            </span>
+          <div class="pronunciation mb-4">
+            <div class="d-flex align-items-center">
+              <div class="bg-light rounded-pill px-4 py-2 d-flex align-items-center">
+                <span class="text-primary fw-bold me-2">[{{ word.pronunciation }}]</span>
+                {% if word.audio %}
+                <button class="btn btn-primary btn-sm rounded-circle ms-2 pronunciation-btn" data-audio-id="audio_{{ word.id }}">
+                  <i class="fas fa-volume-up"></i>
+                </button>
+                <audio id="audio_{{ word.id }}" src="{{ word.audio.url }}"></audio>
+                {% endif %}
+              </div>
+            </div>
           </div>
           {% endif %}
           
-          <div class="mb-4">
-            <h5>{% trans "Definition" %}:</h5>
-            <p>{{ word.get_definition }}</p>
+          <div class="definition-section mb-4">
+            <h5 class="border-bottom pb-2 mb-3">{% trans "Definition" %}:</h5>
+            <div class="p-3 bg-light rounded">
+              <p class="mb-0">{{ word.get_definition }}</p>
+            </div>
           </div>
           
-          <div class="mb-4">
-            <h5>{% trans "Examples" %}:</h5>
-            <div class="card">
+          <div class="examples-section mb-4">
+            <h5 class="border-bottom pb-2 mb-3">{% trans "Examples" %}:</h5>
+            <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <div class="fw-bold">{{ word.example_kz }}</div>
+                <div class="fw-bold text-primary mb-2">{{ word.example_kz }}</div>
                 <div>{{ word.get_example }}</div>
               </div>
             </div>
           </div>
           
           {% if word.examples.all %}
-          <div class="mb-4">
-            <h5>{% trans "Examples" %}:</h5>
-            <ul class="list-group">
+          <div class="additional-examples mb-4">
+            <h5 class="border-bottom pb-2 mb-3">{% trans "More Examples" %}:</h5>
+            <ul class="list-group list-group-flush">
               {% for example in word.examples.all %}
-              <li class="list-group-item">
-                <div class="fw-bold">{{ example.text_kz }}</div>
+              <li class="list-group-item bg-light rounded mb-2 border">
+                <div class="fw-bold text-primary mb-1">{{ example.text_kz }}</div>
                 <div>
                   {% get_current_language as LANGUAGE_CODE %}
                   {% if LANGUAGE_CODE == 'ru' and example.translations.ru.text %}
@@ -93,11 +104,11 @@
           {% endif %}
           
           {% if word.related_words.all %}
-          <div class="mb-4">
-            <h5>{% trans "Related Words" %}:</h5>
+          <div class="related-words mb-4">
+            <h5 class="border-bottom pb-2 mb-3">{% trans "Related Words" %}:</h5>
             <div class="d-flex flex-wrap gap-2">
               {% for related in word.related_words.all %}
-              <a href="{% url 'word_detail' related.id %}" class="badge bg-primary text-decoration-none">
+              <a href="{% url 'word_detail' related.id %}" class="btn btn-sm btn-primary text-decoration-none">
                 {{ related.word_kz }}
               </a>
               {% endfor %}
@@ -110,15 +121,20 @@
     
     <div class="col-md-4">
       {% if word.categories.all %}
-      <div class="card mb-4">
-        <div class="card-header">
+      <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
           <h5 class="mb-0">{% trans "Categories" %}</h5>
         </div>
-        <div class="card-body">
-          <div class="d-flex flex-column gap-2">
+        <div class="card-body p-3">
+          <div class="d-flex flex-wrap gap-2">
             {% for category in word.categories.all %}
-            <a href="{% url 'category_detail' category.id %}" class="btn btn-outline-primary btn-sm">
-              {{ category.get_name }}
+            <a href="{% url 'category_detail' category.id %}" class="category-tag">
+              <div class="d-flex align-items-center">
+                <div class="category-icon bg-light rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 30px; height: 30px;">
+                  <i class="fas fa-folder text-primary"></i>
+                </div>
+                <span>{{ category.get_name }}</span>
+              </div>
             </a>
             {% endfor %}
           </div>
@@ -127,17 +143,17 @@
       {% endif %}
       
       {% if word.synonyms.all or word.antonyms.all %}
-      <div class="card mb-4">
-        <div class="card-header">
+      <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
           <h5 class="mb-0">{% trans "Word Relationships" %}</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body p-3">
           {% if word.synonyms.all %}
           <div class="mb-3">
-            <h6>{% trans "Synonyms" %}:</h6>
-            <div class="d-flex flex-wrap gap-2">
+            <h6 class="border-bottom pb-2">{% trans "Synonyms" %}:</h6>
+            <div class="d-flex flex-wrap gap-2 mt-3">
               {% for synonym in word.synonyms.all %}
-              <a href="{% url 'word_detail' synonym.id %}" class="badge bg-secondary text-decoration-none">
+              <a href="{% url 'word_detail' synonym.id %}" class="btn btn-sm btn-outline-primary text-decoration-none">
                 {{ synonym.word_kz }}
               </a>
               {% endfor %}
@@ -147,10 +163,10 @@
           
           {% if word.antonyms.all %}
           <div>
-            <h6>{% trans "Antonyms" %}:</h6>
-            <div class="d-flex flex-wrap gap-2">
+            <h6 class="border-bottom pb-2">{% trans "Antonyms" %}:</h6>
+            <div class="d-flex flex-wrap gap-2 mt-3">
               {% for antonym in word.antonyms.all %}
-              <a href="{% url 'word_detail' antonym.id %}" class="badge bg-dark text-decoration-none">
+              <a href="{% url 'word_detail' antonym.id %}" class="btn btn-sm btn-outline-secondary text-decoration-none">
                 {{ antonym.word_kz }}
               </a>
               {% endfor %}
@@ -161,36 +177,39 @@
       </div>
       {% endif %}
       
-      <div class="card">
-        <div class="card-header">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
           <h5 class="mb-0">{% trans "Grammar Notes" %}</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body p-3">
           {% if word.grammar_notes %}
-            <p>
+            <div class="grammar-note p-3 bg-light rounded">
               {% get_current_language as LANGUAGE_CODE %}
               {% if LANGUAGE_CODE == 'ru' and word.translations.ru.grammar_notes %}
                 {{ word.translations.ru.grammar_notes|linebreaks }}
               {% else %}
                 {{ word.grammar_notes|linebreaks }}
               {% endif %}
-            </p>
+            </div>
           {% else %}
-            <p class="text-muted">{% trans "No grammar notes available for this word." %}</p>
+            <div class="text-center py-4">
+              <i class="fas fa-book fa-3x text-muted mb-3"></i>
+              <p class="text-muted">{% trans "No grammar notes available for this word." %}</p>
+            </div>
           {% endif %}
         </div>
       </div>
     </div>
   </div>
   
-  <div class="mt-3">
-    <a href="{% url 'dictionary_home' %}" class="btn btn-outline-secondary">
+  <div class="mt-4">
+    <a href="{% url 'dictionary_home' %}" class="btn btn-primary">
       <i class="fas fa-arrow-left me-1"></i> {% trans "Back to Dictionary" %}
     </a>
   </div>
   
   {% else %}
-  <div class="alert alert-warning">
+  <div class="alert alert-warning shadow-sm">
     <h4>{% trans "Word not found" %}</h4>
     <p>{% trans "The requested word was not found in our dictionary." %}</p>
     <a href="{% url 'dictionary_home' %}" class="btn btn-primary mt-2">
@@ -199,4 +218,31 @@
   </div>
   {% endif %}
 </div>
+
+<style>
+.word-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+  border-radius: 30px;
+  color: #0d6efd;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.category-tag:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-2px);
+}
+
+.grammar-note {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+</style>
 {% endblock %} 

@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h1 class="mb-4">{% trans "Kazakh Language Lessons" %}</h1>
             <p class="lead mb-5">{% trans "Select a level to begin your Kazakh language journey. Each level contains multiple lessons with videos, explanations, and practice tests." %}</p>
         </div>
@@ -15,29 +15,36 @@
     
     {% if levels %}
         {% for level, lessons in levels.items %}
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <h2 class="mb-0">{{ level.get_name }}</h2>
+        <div class="card mb-5 shadow-sm border-0">
+            <div class="card-header bg-primary text-white py-3">
+                <h2 class="mb-0 fw-bold">{{ level.get_name }}</h2>
             </div>
-            <div class="card-body">
-                <p>{{ level.get_description }}</p>
+            <div class="card-body p-4">
+                <p class="lead">{{ level.get_description }}</p>
                 
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
                     {% for lesson in lessons %}
                     <div class="col">
-                        <div class="card h-100 lesson-card">
-                            {% if lesson.image %}
-                            <img src="{{ lesson.image.url }}" class="card-img-top" alt="{{ lesson.get_title }}">
-                            {% else %}
-                            <img src="{% static 'img/lesson-placeholder.jpg' %}" class="card-img-top" alt="{{ lesson.get_title }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ lesson.get_title }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ lesson.title_kz }}</h6>
-                                <p class="card-text">{{ lesson.get_description|truncatewords:15 }}</p>
+                        <div class="card h-100 lesson-card shadow-sm border-0 transition-hover">
+                            <div class="position-relative">
+                                {% if lesson.image %}
+                                <img src="{{ lesson.image.url }}" class="card-img-top" alt="{{ lesson.get_title }}" style="height: 180px; object-fit: cover;">
+                                {% else %}
+                                <img src="{% static 'img/lesson-placeholder.svg' %}" class="card-img-top bg-light" alt="{{ lesson.get_title }}" style="height: 180px; object-fit: contain; padding: 20px;">
+                                {% endif %}
+                                <div class="position-absolute top-0 end-0 m-2">
+                                    <span class="badge bg-primary">{{ level.get_name }}</span>
+                                </div>
                             </div>
-                            <div class="card-footer bg-transparent border-top-0">
-                                <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary w-100">{% trans "View Lesson" %}</a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">{{ lesson.get_title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ lesson.title_kz }}</h6>
+                                <p class="card-text flex-grow-1">{{ lesson.get_description|truncatewords:15 }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0 pb-3">
+                                <a href="{{ lesson.get_absolute_url }}" class="btn btn-primary w-100">
+                                    <i class="fas fa-book-open me-2"></i>{% trans "View Lesson" %}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -52,4 +59,14 @@
         </div>
     {% endif %}
 </div>
-{% endblock %} 
+
+<style>
+.transition-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.transition-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+</style>
+{% endblock %}
